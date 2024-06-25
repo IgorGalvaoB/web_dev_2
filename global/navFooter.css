@@ -1,0 +1,21 @@
+.button-nav{
+    width: 90px;
+ 
+}
+#logo_nav{
+    width:5vh;
+    margin-top: 0 auto;
+}
+.footer{
+    height: 6vh;
+    position:fixed;
+    bottom: 0;
+    width:100%;
+}
+.navbar{
+    height:6vh;
+}
+#toogle-button{
+    height: 3vh;
+    width: 3vh;
+}
