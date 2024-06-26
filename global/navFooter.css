@@ -1,10 +1,13 @@
 .button-nav{
     width: 90px;
- 
+
 }
 #logo_nav{
     width:5vh;
     margin-top: 0 auto;
+}
+.navbar-links{
+    max-height: 6vh;
 }
 .footer{
     height: 6vh;

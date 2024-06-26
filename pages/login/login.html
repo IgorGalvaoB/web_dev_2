@@ -18,9 +18,9 @@
         <div class="container border rounded-1 bg-light" style="max-width: 600px;" id="container-form">
             <form class="needs-validation pt-3 pb-3" id="login-form">
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
-                    <p id="result"></p>
+                    
                 </div>
                 
                 <div class="mb-3">
@@ -31,12 +31,14 @@
                     <input type="checkbox" class="form-check-input" id="stay-logged">
                     <label class="form-check-label" for="exampleCheck1" >Permancer conectado</label>
                 </div>
+                <div id="controler-login" class="mb-3">
+                    
+                </div>
                 <button type="submit" id="submit-login" class="btn btn-primary bg-dark border-dark mb-2">Login</button>
             </form>
         </div>
     </div>
-    <footer id="footer" class="footer bg-info">aasdfasd</footer>
-
+    <footer id="footer" class="footer bg-info text-center"></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../global/global.js" defer></script>
     <script src="./login.js"></script>

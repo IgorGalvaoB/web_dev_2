@@ -1,6 +1,14 @@
 *{
     box-sizing: border-box;
+   
 }
 body{
     background-color:azure;
 }
+ @media screen and (max-width: 480px) {
+    
+    body {
+        font-size: 14px;
+    }
+  
+} 

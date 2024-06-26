@@ -1,6 +1,3 @@
-const a = ()=>{
-    console.log('b')
-}
 
 document.addEventListener("DOMContentLoaded", function() {
     const path = window.location.pathname;
@@ -15,19 +12,14 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.text())
         .then(data => {
             document.getElementById('header').innerHTML = data;
-            const valorArmazenado = localStorage.getItem('id')||sessionStorage.getItem('idLogin');
-            const teste= async ()=>{
-                const btn = document.getElementById(button-login)
-                btn.addEventListener('click',()=>{
-                    console.log('b')
-                })
-            }
+            const valorArmazenado = localStorage.getItem('id')||sessionStorage.getItem('id');
+            
             if (!valorArmazenado) {
                 const element = document.getElementById('btn-sing-login');
                 const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-login">
                                     <a class="text-light nav-link" href="#">Login</a>
                                 </button>
-                                <button type="button" class="btn btn-light button-nav btn-sm mb-1 mt-1" id="button-sing-up">
+                                <button type="button" class="btn btn-light button-nav btn-sm mb-1 mt-1" id="button-sign-up">
                                     <a class="nav-link" href="#">Sing Up</a>
                                 </button>`
 
@@ -42,11 +34,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 
             }else{
                 const element = document.getElementById('btn-sing-login');
-                const notLoged=`<button type="button" class="btn btn-light button-nav btn-sm" id="button-profile">
-                                    <a class="nav-link" href="#">Conta</a>
+                const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-profile">
+                                    <a class="nav-link text-light" href="#">Conta</a>
                                 </button>
-                                <button type="button" class="btn btn-light button-nav btn-sm " id="button-logout">
-                                    <a class="nav-link" href="#">Sair</a>
+                                <button type="button" class="btn btn-danger button-nav btn-sm mb-1 ms-1 mt-1" id="button-logout">
+                                    <a class="nav-link text-light" href="#">Sair</a>
                                 </button>`
                 const tempDiv= document.createElement('div')
                 tempDiv.innerHTML = notLoged
@@ -58,17 +50,38 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error loading header:', error));
         const onClickBtns=async()=>{
-            await loadNav   
+            await loadNav
+            const btnLogin = document.getElementById('button-login')||false
+            const btnSignUp = document.getElementById('button-sign-up')||false
+            const btnProfile = document.getElementById('button-profile')||false
+            const btnLogout = document.getElementById('button-logout')||false
             try {
-                if(document.getElementById('button-login')){
-                    document.getElementById('button-login').addEventListener('click',()=>{
-                        console.log('b')
+                if(btnLogin){
+                    btnLogin.addEventListener('click',()=>{
+                        if(path==='/index.html'){
+                            window.location.href = './pages/login/login.html'
+                        }else{
+                            window.location.href = '../login/login.html'
+                        }
                 })}
-                if(document.getElementById('button-logout')){
-                    document.getElementById('button-logout').addEventListener('click',()=>{
+                if(btnLogout){
+                    btnLogout.addEventListener('click',()=>{
                         localStorage.clear()
                         sessionStorage.clear()
-                        
+                        if(path==='/index.html'){
+                            window.location.href = './index.html'
+                        }else{
+                            window.location.href = '../../index.html'
+                        }
+                    })
+                }
+                if(btnSignUp){
+                    btnSignUp.addEventListener('click',()=>{
+                        if(path==='/index.html'){
+                            window.location.href = './pages/sign_up/sign_up.html'
+                        }else{
+                            window.location.href = '../sign_up/sign_up.html'
+                        }
                     })
                 }
             } catch (error) {

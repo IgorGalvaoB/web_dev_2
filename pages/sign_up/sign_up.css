@@ -1,0 +1,32 @@
+.controler-sign-up{
+    height:20px;
+    border:1px solid red; 
+    width: 100%;
+    text-align: center;
+}
+#go-next-form{
+    margin-right:0px;
+}
+#form-2{
+    background-color: rgb(210, 212, 221);
+    opacity: 0.8;
+}
+
+#cpf{
+    width:50%;
+}
+.btns-sing-up{
+    width: 20%;
+}
+#form-2{
+    background-color: rgb(180, 182, 189);
+}
+
+
+@media screen and (max-width: 480px) {
+    
+    .forms-inputs {
+        font-size: 13px;
+    }
+  
+} 
