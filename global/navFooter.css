@@ -22,3 +22,8 @@
     height: 2.5vh;
     width: 2.5vh;
 }
+#navbar{
+    position:fixed;
+    top:0;
+    z-index: 1;
+}

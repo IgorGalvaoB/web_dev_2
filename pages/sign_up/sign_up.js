@@ -66,6 +66,11 @@ function handleBirthDateBlur() {
     valor = valor.replace(/\D/g, '');
     valor = formatarBirthDate(valor);
     birthDateInput.value = valor;
+    if(birthDateInput.value.length<10 && birthDateInput.value.length!==0){
+        document.getElementById('birth-date-helper-text').innerHTML = '<span class="text-danger">Data inválida</span>'
+    }else{
+        document.getElementById('birth-date-helper-text').innerHTML = '<span">DD/MM/AAAA</span>'
+    }
 }
 
 document.getElementById('birth-date').addEventListener('input', handleBirthDateInput);
@@ -74,12 +79,10 @@ document.getElementById('birth-date').addEventListener('blur', handleBirthDateBl
 function handlePasswordInput() {
     let passwordInput = document.getElementById('password');
     let valor = passwordInput.value;
-
     if (valor.length > 16) {
         passwordInput.value = valor.slice(0, 16);
     }
 }
-
 function handlePasswordBlur() {
     let passwordInput = document.getElementById('password');
     let valor = passwordInput.value;
@@ -90,20 +93,17 @@ function handlePasswordBlur() {
         document.getElementById('password-helper').innerHTML = `<p>Deve conter entre 8 a 16 caracteres</>`
     }
 }
-
 document.getElementById('password').addEventListener('input', handlePasswordInput);
 document.getElementById('password').addEventListener('blur', handlePasswordBlur);
 //---------------------------------------------------------------------------------------------------------------------
 function handlePasswordInput2() {
     let passwordInput = document.getElementById('password2');
     let valor = passwordInput.value;
-
     if (valor.length > 16) {
         passwordInput.value = valor.slice(0, 16);
     }
 }
 function comparePasswords() {
-
     let password1 = document.getElementById('password').value;
     let password2 = document.getElementById('password2').value;
 
@@ -157,14 +157,11 @@ const handleCEPBlur = () => {
 async function GetDataCep() {
     let cepInput = document.getElementById('cep');
     let cep = cepInput.value.replace(/\D/g, '');
-    
     if (cep.length < 8) {
         alert('CEP incompleto.');
         return;
     }
-
     cep = formatarCEP(cep);
-
     try {
         const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
         const data = await response.json();
@@ -172,15 +169,33 @@ async function GetDataCep() {
         if (data.erro) {
             document.getElementById('cep-helper-text').innerHTML = `<span class="text-danger">CEP não encontrado</>`
         } else {
-            console.log(`Endereço: ${data}, ${data.localidade} - ${data.uf}`)
+            const logradouro = document.getElementById('logradouro')
+            const uf = document.getElementById('uf')
+            const cidade = document.getElementById('city')
+            const bairro = document.getElementById('neighborhood')
             
+            if(data.logradouro){
+                logradouro.value = data.logradouro
+                logradouro.disabled = true
+            }
+            if(data.localidade){
+                cidade.value = data.localidade
+                cidade.disabled = true
+            }
+            if(data.uf){
+                uf.value = data.uf
+                uf.disabled = true
+            }
+            if(data.bairro){
+                bairro.value = data.bairro
+                bairro.disabled = true
+            }
         }
     } catch (error) {
         alert('Erro ao consultar o CEP.');
         console.error('Erro:', error);
     }
 }
-
 document.getElementById('cep').addEventListener('input', handleCEPInput);
 document.getElementById('cep').addEventListener('blur', handleCEPBlur);
 
@@ -202,3 +217,49 @@ document.getElementById('form-1').addEventListener('submit', (event) => {
     form2.style.opacity = '1'
 
 });
+//---------------------------------------------------------------------------------------------------------------------
+function ajustarAltura() {
+    const elemento1 = document.getElementById('form-1');
+    const elemento2 = document.getElementById('form-2');
+    const alturaElemento1 = elemento1.offsetHeight;
+    if(!elemento2.offsetHeight>elemento2.offsetHeight){
+        elemento2.style.minHeight = `${alturaElemento1}px`;
+    }    
+}  
+ajustarAltura();
+window.onload = ajustarAltura;
+window.addEventListener('resize', ajustarAltura);
+//---------------------------------------------------------------------------------------------------------------------
+
+function updateTargetPosition() {
+    const reference = document.getElementById('btns-form-1');
+    const target = document.getElementById('btns-form-2');
+    const negativeReference = document.getElementById('div-complement')
+
+    const negativeReferenceOffsetTop = negativeReference.offsetTop;
+
+    const referenceOffsetTop = reference.offsetTop;
+    const sizeNegativeReference = negativeReference.offsetHeight;
+
+    target.style.marginTop = `${referenceOffsetTop-negativeReferenceOffsetTop-sizeNegativeReference}px`;
+  }
+
+window.onload = updateTargetPosition;
+//---------------------------------------------------------------------------------------------------------------------
+document.getElementById('back-button').addEventListener('click',(e)=>{
+    e.preventDefault()
+    const fieldsetForm1 = document.getElementById('fieldset-form-1')
+    const form1 = document.getElementById('form-1')
+    const fieldsetForm2 = document.getElementById('fieldset-form-2')
+    const form2 = document.getElementById('form-2')
+    
+    fieldsetForm2.disabled = true
+    fieldsetForm1.disabled = false
+    form1.classList.add('bg-light')
+    form2.classList.remove('bg-light')
+    form2.style.opacity = '0.8'
+    form2.style.backgroundColor = 'rgb(180, 182, 189)'
+    form2.style.opacity = '0.8'
+
+   
+})

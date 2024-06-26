@@ -14,74 +14,126 @@
 
 <body>
     <header id="header" class="py-0"></header>
-    <div class="container-md d-flex align-items-center mb-3" style="height: 88vh">
-        <div class="container  d-flex " id="container-form">
-            <form class="needs-validation pt-3 pb-3 container-fluid border rounded-1 forms-sing-up bg-light"
-                id="form-1">
-                <fieldset id="fieldset-form-1">
-                    <div class="mb-2">
-                        <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control forms-inputs" id="name" required>
+    <div class="container-lg d-flex flex-column justify-content-center" style="min-height: 88vh">
+        <div class="row" id="container-form" style="border:1px solid  ">
+            <div class="col-12 col-xl-6 mb-2">
+                <form class="needs-validation pt-3 pb-3 container-fluid border rounded-2 forms-sing-up bg-light"
+                    id="form-1">
+                    <fieldset id="fieldset-form-1">
+                        <div class="mb-2">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" class="form-control forms-inputs" id="name" required>
 
-                    </div>
-                    <div class="mb-2">
-                        <label for="cpf" maxlength="14" class="form-label">CPF</label>
-                        <input type="text" id="cpf" name="cpf" maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                            placeholder="___.___.___-__" required class="form-control forms-inputs" required>
-
-                    </div>
-                    <div class="mb-2">
-                        <label for="birth-date" maxlength="14" class="form-label">Data de Nascimento</label>
-                        <input type="text" id="birth-date" name="birth-date" maxlength="10" placeholder="__/__/____"
-                            class="form-control forms-inputs" required>
-                        <div id="birth-date-helper" class="form-text">
-                            <p id="birth-date-helper-text" maxlength="10">DD/MM/AAAA</p>
                         </div>
-                    </div>
-                    <div class="mb-2">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control forms-inputs" id="email" required>
+                        <div class="mb-2">
+                            <label for="cpf" maxlength="14" class="form-label">CPF</label>
+                            <input type="text" id="cpf" name="cpf" maxlength="14" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+                                placeholder="___.___.___-__" required class="form-control forms-inputs" required>
 
-                    </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="birth-date" maxlength="14" class="form-label">Data de Nascimento</label>
+                            <input type="text" id="birth-date" name="birth-date" maxlength="10" placeholder="__/__/____"
+                                class="form-control forms-inputs" required>
+                            <div id="birth-date-helper" class="form-text">
+                                <p id="birth-date-helper-text" maxlength="10">DD/MM/AAAA</p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control forms-inputs" id="email" required>
 
-                    <div class="mb-2">
-                        <label for="password" class="form-label">Senha</label>
-                        <input type="password" class="form-control forms-inputs" id="password" required>
-                        <div id="password-helper" class="form-text">
-                            <p id="password-helper-text">Deve conter entre 8 a 16 caracteres</p>
                         </div>
 
-                    </div>
+                        <div class="mb-2">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" class="form-control forms-inputs" id="password" required>
+                            <div id="password-helper" class="form-text">
+                                <p id="password-helper-text">Deve conter entre 8 a 16 caracteres</p>
+                            </div>
 
-                    <div class="mb-1">
-                        <label for="password2" class="form-label">Confirmar Senha</label>
-                        <input type="password" class="form-control forms-inputs " id="password2" required>
-                        <div id="password-helper2" class="form-text">Deve ser igual a anterior</div>
-                    </div>
-                    <div class="container-fluid px-0 mx-0 d-flex flex-row justify-content-end">
-                        <button type="reset"
-                            class="btn text-light bg-danger border-danger me-2 btns-sing-up">Limpar</button>
-                        <button type="submit" class="btn text-light bg-dark border-dark btns-sing-up">Próximo</button>
-                    </div>
-                </fieldset>
-            </form>
-            <form class="needs-validation pt-3 pb-3 container-fluid border rounded-1 forms-sing-up ms-1" id="form-2">
-                <fieldset id="fieldset-form-2" >
-                    <div class="mb-3">
-                        <label for="form2File" class="form-label">Imagem do Perfil</label>
-                        <input class="form-control" type="file" id="form2File">
-                    </div>
-                    <div class="mb-2">
-                        <label for="cep" maxlength="14" class="form-label">CEP</label>
-                        <input type="text" id="cep" name="cep" maxlength="9" class="form-control forms-inputs" required>
-                        <div id="cep-helper" class="form-text">
-                            <p id="cep-helper-text"></p>
                         </div>
-                    </div>
-                    
-                </fieldset>
-            </form>
 
+                        <div class="mb-1">
+                            <label for="password2" class="form-label">Confirmar Senha</label>
+                            <input type="password" class="form-control forms-inputs " id="password2" required>
+                            <div id="password-helper2" class="form-text">Deve ser igual a anterior</div>
+                        </div>
+                        <div class="container-fluid px-0 mx-0 d-flex flex-row justify-content-end" id="btns-form-1">
+                            <button type="reset"
+                                class="btn text-light bg-danger border-danger me-2 btns-sing-up">Limpar</button>
+                            <button type="submit"
+                                class="btn text-light bg-dark border-dark btns-sing-up">Próximo</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="col-12 col-xl-6">
+                <form class="needs-validation pt-3 pb-3 container-fluid border rounded-2 forms-sing-up " id="form-2">
+                    <fieldset id="fieldset-form-2" disabled>
+                        <div class="mb-2">
+                            <label for="form2File" class="form-label">Imagem do Perfil</label>
+                            <input class="form-control" type="file" id="form2File">
+                        </div>
+                        <div class="mb-2">
+                            <label for="cep" maxlength="14" class="form-label">CEP</label>
+                            <input type="text" id="cep" name="cep" maxlength="9" class="form-control forms-inputs">
+                            <div id="cep-helper" class="form-text">
+                                <p id="cep-helper-text">Em caso de não haver CEP, deixar em branco</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="container col-12 col-md-10">
+                                <label for="logradouro" maxlength="14" class="form-label ">Logradouro</label>
+                                <input type="text" id="logradouro" name="cep" class="form-control forms-inputs"
+                                    required>
+                            </div>
+                            <div class="container col-12 col-md-2 ">
+                                <label for="number" maxlength="14" id="number" class="form-label mx-0 py-0">Número</label>
+                                <input type="text" id="number" name="number" maxlength="9"
+                                    class="form-control forms-inputs ms-0">
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <label for="neighborhood" maxlength="14" class="form-label">Bairro</label>
+                            <input type="text" id="neighborhood" name="neighborhood" class="form-control forms-inputs"
+                                required>
+                        </div>
+                        <div class="mb-2">
+                            <div class="row ">
+                                <div class="container mx-0 py-0 col-9 col-md-10">
+                                    <label for="city" maxlength="14" class="form-label">Cidade</label>
+                                    <input type="text" id="city" name="city" class="form-control forms-inputs" required>
+                                </div>
+                                <div class="container col-3 col-md-2">
+                                    <label for="uf" maxlength="14" class="form-label">UF</label>
+                                    <input type="text" id="uf" name="uf" maxlength="2" class="form-control forms-inputs"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="div-complement">
+                            <label for="complement" maxlength="14" class="form-label">Complemento</label>
+                            <input type="text" id="complement" name="complement" maxlength="40"
+                                class="form-control forms-inputs">
+                        </div>
+                        <div class="d-flex flex-row justify-content-between" id="btns-form-2">
+                            <button type="button" class="btn text-light bg-dark border-dark me-2 btns-sing-up"
+                                id="back-button">Voltar</button>
+                            <div class="px-0 mx-0 ">
+                                <button type="reset"
+                                    class="btn text-light bg-danger border-danger me-0 btns-sing-up">Limpar</button>
+
+                                <button type="submit"
+                                    class="btn text-light bg-success border-success btns-sing-up">Cadastrar</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
     <footer id="footer" class="footer bg-info text-center"></footer>
