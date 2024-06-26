@@ -21,7 +21,9 @@
 #form-2{
     background-color: rgb(180, 182, 189);
 }
-
+#cep{
+    width:50%;
+}
 
 @media screen and (max-width: 480px) {
     
