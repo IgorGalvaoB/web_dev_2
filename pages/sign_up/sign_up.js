@@ -259,7 +259,5 @@ document.getElementById('back-button').addEventListener('click',(e)=>{
     form2.classList.remove('bg-light')
     form2.style.opacity = '0.8'
     form2.style.backgroundColor = 'rgb(180, 182, 189)'
-    form2.style.opacity = '0.8'
-
-   
+    form1.style.opacity = '1'
 })

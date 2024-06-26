@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
             
             if (!valorArmazenado) {
                 const element = document.getElementById('btn-sing-login');
-                const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-login">
+                const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-login" style="max-height:5vh">
                                     <a class="text-light nav-link" href="#">Login</a>
                                 </button>
-                                <button type="button" class="btn btn-light button-nav btn-sm mb-1 mt-1" id="button-sign-up">
+                                <button type="button" class="btn btn-light button-nav btn-sm mb-1 mt-1" id="button-sign-up" style="max-height:5vh">
                                     <a class="nav-link" href="#">Sing Up</a>
                                 </button>`
 
@@ -34,10 +34,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 
             }else{
                 const element = document.getElementById('btn-sing-login');
-                const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-profile">
+                const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-profile" style="max-height:5vh">
                                     <a class="nav-link text-light" href="#">Conta</a>
                                 </button>
-                                <button type="button" class="btn btn-danger button-nav btn-sm mb-1 ms-1 mt-1" id="button-logout">
+                                <button type="button" class="btn btn-danger button-nav btn-sm mb-1 ms-1 mt-1" id="button-logout style="max-height:5vh">
                                     <a class="nav-link text-light" href="#">Sair</a>
                                 </button>`
                 const tempDiv= document.createElement('div')

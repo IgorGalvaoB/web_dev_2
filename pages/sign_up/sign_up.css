@@ -2,10 +2,7 @@
 #go-next-form{
     margin-right:0px;
 }
-#form-2{
-    background-color: rgb(210, 212, 221);
-    opacity: 0.8;
-}
+
 
 #cpf{
     width:50%;
@@ -19,6 +16,7 @@
 }
 #form-2{
     background-color: rgb(180, 182, 189);
+    opacity: 0.8;
 }
 #cep{
     width:50%;
