@@ -1,14 +1,11 @@
 
 document.addEventListener("DOMContentLoaded", function() {
-    const path = window.location.pathname;
-    let url = ''
-    if(path==="/index.html"){
-        url = './global/header.html'
-    }else{
-        url = '../../global/header.html'
-     
-    }
-    const loadNav = fetch(url)
+   
+    let url = '../../global/header.html'
+    
+    const loadNav = fetch(url,{
+        mode:"no-cors",
+    })
         .then(response => response.text())
         .then(data => {
             document.getElementById('header').innerHTML = data;
@@ -58,30 +55,19 @@ document.addEventListener("DOMContentLoaded", function() {
             try {
                 if(btnLogin){
                     btnLogin.addEventListener('click',()=>{
-                        if(path==='/index.html'){
-                            window.location.href = './pages/login/login.html'
-                        }else{
-                            window.location.href = '../login/login.html'
-                        }
+                        window.location.href = '../login/login.html'
                 })}
                 if(btnLogout){
                     btnLogout.addEventListener('click',()=>{
+                        window.location.href = "../login/login.html"
                         localStorage.clear()
                         sessionStorage.clear()
-                        if(path==='/index.html'){
-                            window.location.href = './index.html'
-                        }else{
-                            window.location.href = '../../index.html'
-                        }
+                        
                     })
                 }
                 if(btnSignUp){
                     btnSignUp.addEventListener('click',()=>{
-                        if(path==='/index.html'){
-                            window.location.href = './pages/sign_up/sign_up.html'
-                        }else{
-                            window.location.href = '../sign_up/sign_up.html'
-                        }
+                        window.location.href = '../sign_up/sign_up.html'
                     })
                 }
             } catch (error) {
@@ -91,13 +77,12 @@ document.addEventListener("DOMContentLoaded", function() {
         onClickBtns()
 })
 document.addEventListener("DOMContentLoaded", function() {
-    const path = window.location.pathname
-    if(path==="/index.html"){
-        url = './global/footer.html'
-    }else{
-        url = '../../global/footer.html'
-    }
-    fetch(url)
+    
+    const url = '../../global/footer.html'
+
+    fetch(url,{
+        mode:"no-cors"
+    })
         .then(response => response.text())
         .then(data => {
             document.getElementById('footer').innerHTML = data;
