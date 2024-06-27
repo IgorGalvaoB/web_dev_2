@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 const notLoged=`<button type="button" class="btn btn-dark button-nav btn-sm mb-1 ms-1 mt-1" id="button-profile" style="max-height:5vh">
                                     <a class="nav-link text-light" href="#">Conta</a>
                                 </button>
-                                <button type="button" class="btn btn-danger button-nav btn-sm mb-1 ms-1 mt-1" id="button-logout style="max-height:5vh">
+                                <button type="button" class="btn btn-danger button-nav btn-sm mb-1 ms-1 mt-1" id="button-logout" style="max-height:5vh">
                                     <a class="nav-link text-light" href="#">Sair</a>
                                 </button>`
                 const tempDiv= document.createElement('div')
@@ -59,16 +59,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 })}
                 if(btnLogout){
                     btnLogout.addEventListener('click',()=>{
-                        window.location.href = "../login/login.html"
+                        console.log("existe")
                         localStorage.clear()
-                        sessionStorage.clear()
+                        sessionStorage.clear("id")
+                        window.location.href = "../homes/index.html"
                         
                     })
+                }else{
+                    console.log("nao existe")
                 }
                 if(btnSignUp){
                     btnSignUp.addEventListener('click',()=>{
                         window.location.href = '../sign_up/sign_up.html'
                     })
+                }else{
+
                 }
             } catch (error) {
                 console.error("Error loading button login:",error)

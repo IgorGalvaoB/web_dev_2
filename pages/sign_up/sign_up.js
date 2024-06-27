@@ -149,9 +149,6 @@ const handleCEPBlur = () => {
     while (valor.length < 8) {
         valor = '0' + valor;
     }
-    const cepNumber = valor
-    valor = formatarCEP(valor)
-    cepInput.value = valor;
     GetDataCep()
 }
 async function GetDataCep() {
