@@ -10,12 +10,15 @@
     <link rel="stylesheet" href="../../index.css">
     <link rel="stylesheet" href="../../global/navFooter.css">
     <link rel="stylesheet" href="./sign_up.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../global/global.js" defer></script>
+    <script src="./sign_up.js"></script>
 </head>
 
 <body>
     <header id="header" class="py-0"></header>
     <div class="container-lg d-flex flex-column justify-content-center" style="min-height: 88vh">
-        <div class="row" id="container-form">
+        <div class="row" id="container-form" style="border:1px solid  ">
             <div class="col-12 col-xl-6 mb-2">
                 <form class="needs-validation pt-3 pb-3 container-fluid border rounded-2 forms-sing-up bg-light"
                     id="form-1">
@@ -71,9 +74,9 @@
 
             <div class="col-12 col-xl-6">
                 <form class="needs-validation pt-3 pb-3 container-fluid border rounded-2 forms-sing-up " id="form-2">
-                    <fieldset id="fieldset-form-2" disabled>
+                    <fieldset id="fieldset-form-2">
                         <div class="mb-2">
-                            <label for="form2File" class="form-label" >Imagem do Perfil</label>
+                            <label for="form2File" class="form-label">Imagem do Perfil</label>
                             <input class="form-control" type="file" id="form2File">
                         </div>
                         <div class="mb-2">
@@ -137,12 +140,6 @@
         </div>
     </div>
     <footer id="footer" class="footer bg-info text-center"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../global/global.js" defer></script>
-    <script src="./sign_up.js"></script>
-
-
-    </script>
 </body>
 
 </html>
