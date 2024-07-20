@@ -71,10 +71,20 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById('button-logout')?.addEventListener('click', () => {
                 localStorage.clear();
                 sessionStorage.clear();
-                window.location.href = `${baseUrl}index.html`;
+                window.location.href = `/index.html`; // Always redirect to root index.html
             });
         } else {
             console.error("Element with id 'btn-sing-login' not found");
         }
     };
+
+    // Update logo link to always point to the root index.html
+    const logoLink = document.querySelector('.navbar-brand');
+    if (logoLink) {
+        logoLink.href = "/index.html";
+        logoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = "/index.html";
+        });
+    }
 });
