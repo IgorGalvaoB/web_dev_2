@@ -1,259 +1,301 @@
-document.addEventListener("DOMContentLoaded", function () {
-    function validarNome(nome) {
-        nome = nome.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
-        nome = nome.slice(0, 37);
-        return nome;
+class User {
+    constructor({ id, name, cpf, birthDate, email, password, address }) {
+        this.id = id;
+        this.name = name;
+        this.cpf = cpf;
+        this.birthDate = birthDate;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+    }
+}
+
+class Address {
+    constructor({ cep, logradouro, number, neighborhood, city, uf, complement }) {
+        this.cep = cep;
+        this.logradouro = logradouro;
+        this.number = number;
+        this.neighborhood = neighborhood;
+        this.city = city;
+        this.uf = uf;
+        this.complement = complement;
+    }
+}
+
+class SignUpHandler {
+    constructor() {
+        this.setupListeners();
     }
 
-    function handleNomeInput() {
+    setupListeners() {
+        document.getElementById('name').addEventListener('input', () => this.handleNomeInput());
+        document.getElementById('cpf').addEventListener('input', () => this.handleCPFInput());
+        document.getElementById('cpf').addEventListener('blur', () => this.handleCPFBlur());
+        document.getElementById('birth-date').addEventListener('input', () => this.handleBirthDateInput());
+        document.getElementById('birth-date').addEventListener('blur', () => this.handleBirthDateBlur());
+        document.getElementById('password').addEventListener('input', () => this.handlePasswordInput());
+        document.getElementById('password').addEventListener('blur', () => this.handlePasswordBlur());
+        document.getElementById('password2').addEventListener('input', () => this.handlePasswordInput2());
+        document.getElementById('password2').addEventListener('blur', () => this.comparePasswords());
+        document.getElementById('cep').addEventListener('input', () => this.handleCEPInput());
+        document.getElementById('cep').addEventListener('blur', () => this.handleCEPBlur());
+        document.getElementById('form-1').addEventListener('submit', (event) => this.handleForm1Submit(event));
+        document.getElementById('form-2').addEventListener('submit', (event) => this.handleForm2Submit(event));
+        document.getElementById('back-button').addEventListener('click', (event) => this.handleBackButton(event));
+        window.onload = this.updateTargetPosition;
+        window.addEventListener('resize', this.updateTargetPosition);
+    }
+
+    validarNome(nome) {
+        nome = nome.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
+        return nome.slice(0, 37);
+    }
+
+    handleNomeInput() {
         let nomeInput = document.getElementById('name');
         let valor = nomeInput.value;
-        valor = validarNome(valor);
+        valor = this.validarNome(valor);
         nomeInput.value = valor;
     }
 
-    document.getElementById('name').addEventListener('input', handleNomeInput);
-    //---------------------------------------------------------------------------------------------------------------------
-
-    function formatarCPF(cpf) {
+    formatarCPF(cpf) {
         cpf = cpf.replace(/\D/g, '');
-        cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-        return cpf;
+        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
     }
 
-    function handleCPFInput() {
+    handleCPFInput() {
         let cpfInput = document.getElementById('cpf');
         let valor = cpfInput.value;
-        valor = valor.replace(/\D/g, '');
-        valor = formatarCPF(valor);
+        valor = this.formatarCPF(valor);
         cpfInput.value = valor;
     }
 
-    function handleCPFBlur() {
+    handleCPFBlur() {
         let cpfInput = document.getElementById('cpf');
-        let valor = cpfInput.value;
-
-        valor = valor.replace(/\D/g, '');
-
+        let valor = cpfInput.value.replace(/\D/g, '');
         while (valor.length < 11) {
             valor = '0' + valor;
         }
-        valor = formatarCPF(valor);
+        valor = this.formatarCPF(valor);
         cpfInput.value = valor;
     }
 
-    document.getElementById('cpf').addEventListener('input', handleCPFInput);
-    document.getElementById('cpf').addEventListener('blur', handleCPFBlur);
-    //---------------------------------------------------------------------------------------------------------------------
-    function formatarBirthDate(birthDate) {
+    formatarBirthDate(birthDate) {
         birthDate = birthDate.replace(/\D/g, '');
-        birthDate = birthDate.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-        return birthDate;
+        return birthDate.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
     }
 
-    function handleBirthDateInput() {
+    handleBirthDateInput() {
         let birthDateInput = document.getElementById('birth-date');
         let valor = birthDateInput.value;
-        valor = valor.replace(/\D/g, '');
-        valor = formatarBirthDate(valor);
+        valor = this.formatarBirthDate(valor);
         birthDateInput.value = valor;
     }
 
-    function handleBirthDateBlur() {
+    handleBirthDateBlur() {
         let birthDateInput = document.getElementById('birth-date');
-        let valor = birthDateInput.value;
-
-        valor = valor.replace(/\D/g, '');
-        valor = formatarBirthDate(valor);
+        let valor = birthDateInput.value.replace(/\D/g, '');
+        valor = this.formatarBirthDate(valor);
         birthDateInput.value = valor;
         if (birthDateInput.value.length < 10 && birthDateInput.value.length !== 0) {
-            document.getElementById('birth-date-helper-text').innerHTML = '<span class="text-danger">Data inválida</span>'
+            document.getElementById('birth-date-helper-text').innerHTML = '<span class="text-danger">Data inválida</span>';
         } else {
-            document.getElementById('birth-date-helper-text').innerHTML = '<span">DD/MM/AAAA</span>'
+            document.getElementById('birth-date-helper-text').innerHTML = 'DD/MM/AAAA';
         }
     }
 
-    document.getElementById('birth-date').addEventListener('input', handleBirthDateInput);
-    document.getElementById('birth-date').addEventListener('blur', handleBirthDateBlur);
-    //---------------------------------------------------------------------------------------------------------------------
-    function handlePasswordInput() {
+    handlePasswordInput() {
         let passwordInput = document.getElementById('password');
         let valor = passwordInput.value;
         if (valor.length > 16) {
             passwordInput.value = valor.slice(0, 16);
         }
     }
-    function handlePasswordBlur() {
+
+    handlePasswordBlur() {
         let passwordInput = document.getElementById('password');
         let valor = passwordInput.value;
-
         if (valor.length < 8) {
-            document.getElementById('password-helper').innerHTML = `<p class="text-danger">A senha deve conter entre 8 a 16 caracteres</>`
+            document.getElementById('password-helper').innerHTML = '<p class="text-danger">A senha deve conter entre 8 a 16 caracteres</p>';
         } else {
-            document.getElementById('password-helper').innerHTML = `<p>Deve conter entre 8 a 16 caracteres</>`
+            document.getElementById('password-helper').innerHTML = 'Deve conter entre 8 a 16 caracteres';
         }
     }
-    document.getElementById('password').addEventListener('input', handlePasswordInput);
-    document.getElementById('password').addEventListener('blur', handlePasswordBlur);
-    //---------------------------------------------------------------------------------------------------------------------
-    function handlePasswordInput2() {
+
+    handlePasswordInput2() {
         let passwordInput = document.getElementById('password2');
         let valor = passwordInput.value;
         if (valor.length > 16) {
             passwordInput.value = valor.slice(0, 16);
         }
     }
-    function comparePasswords() {
+
+    comparePasswords() {
         let password1 = document.getElementById('password').value;
         let password2 = document.getElementById('password2').value;
-
         if (password1 !== password2) {
-            document.getElementById('password-helper2').innerHTML = `<span class="text-danger">As senhas são diferentes</span>`
-            if (password2 === '') {
-                document.getElementById('password-helper2').innerHTML = `<span>Deve ser igual a anterior</span>`
-            }
-        } else if (password1.length < 8 || password1.length === '') {
-            document.getElementById('password-helper2').innerHTML = `<span>Deve ser igual a anterior</>`
+            document.getElementById('password-helper2').innerHTML = '<span class="text-danger">As senhas são diferentes</span>';
+        } else if (password2 === '') {
+            document.getElementById('password-helper2').innerHTML = 'Deve ser igual a anterior';
         } else {
-            document.getElementById('password-helper2').innerHTML = `<span class="text-success">Senhas são iguais</span>`
+            document.getElementById('password-helper2').innerHTML = '<span class="text-success">Senhas são iguais</span>';
         }
     }
-    document.getElementById('password2').addEventListener('input', handlePasswordInput2);
-    document.getElementById('password2').addEventListener('blur', comparePasswords);
-    //---------------------------------------------------------------------------------------------------------------------
-    function formatarCEP(cep) {
 
+    formatarCEP(cep) {
         cep = cep.replace(/\D/g, '');
-        cep = cep.replace(/^(\d{5})(\d{3})/, '$1-$2');
-        return cep;
+        return cep.replace(/^(\d{5})(\d{3})/, '$1-$2');
     }
 
-    function handleCEPInput() {
+    handleCEPInput() {
         let cepInput = document.getElementById('cep');
         let valor = cepInput.value;
-        valor = formatarCEP(valor);
+        valor = this.formatarCEP(valor);
         cepInput.value = valor;
     }
 
-    const handleCEPBlur = () => {
+    async handleCEPBlur() {
         let cepInput = document.getElementById('cep');
-        let valor = cepInput.value;
-        if (valor === '') {
-            return
-        }
-        valor = valor.replace(/\D/g, '');
+        let valor = cepInput.value.replace(/\D/g, '');
         while (valor.length < 8) {
             valor = '0' + valor;
         }
-        valor = formatarCEP(valor)
+        valor = this.formatarCEP(valor);
         cepInput.value = valor;
-        GetDataCep()
+        await this.GetDataCep();
     }
-    async function GetDataCep() {
+
+    async GetDataCep() {
         let cepInput = document.getElementById('cep');
         let cep = cepInput.value.replace(/\D/g, '');
         if (cep.length < 8) {
             alert('CEP incompleto.');
             return;
         }
-        cep = formatarCEP(cep);
+        cep = this.formatarCEP(cep);
         try {
             const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
             const data = await response.json();
-
             if (data.erro) {
-                document.getElementById('cep-helper-text').innerHTML = `<span class="text-danger">CEP não encontrado</>`
+                document.getElementById('cep-helper-text').innerHTML = '<span class="text-danger">CEP não encontrado</span>';
             } else {
-                const logradouro = document.getElementById('logradouro')
-                const uf = document.getElementById('uf')
-                const cidade = document.getElementById('city')
-                const bairro = document.getElementById('neighborhood')
-
-                if (data.logradouro) {
-                    logradouro.value = data.logradouro
-                    logradouro.disabled = true
-                }
-                if (data.localidade) {
-                    cidade.value = data.localidade
-                    cidade.disabled = true
-                }
-                if (data.uf) {
-                    uf.value = data.uf
-                    uf.disabled = true
-                }
-                if (data.bairro) {
-                    bairro.value = data.bairro
-                    bairro.disabled = true
-                }
+                const logradouro = document.getElementById('logradouro');
+                const uf = document.getElementById('uf');
+                const cidade = document.getElementById('city');
+                const bairro = document.getElementById('neighborhood');
+                if (data.logradouro) logradouro.value = data.logradouro;
+                if (data.localidade) cidade.value = data.localidade;
+                if (data.uf) uf.value = data.uf;
+                if (data.bairro) bairro.value = data.bairro;
             }
         } catch (error) {
             alert('Erro ao consultar o CEP.');
             console.error('Erro:', error);
         }
     }
-    document.getElementById('cep').addEventListener('input', handleCEPInput);
-    document.getElementById('cep').addEventListener('blur', handleCEPBlur);
 
-    //---------------------------------------------------------------------------------------------------------------------
-    document.getElementById('form-1').addEventListener('submit', (event) => {
+    handleForm1Submit(event) {
         event.preventDefault();
-        const fieldsetForm1 = document.getElementById('fieldset-form-1')
-        const form1 = document.getElementById('form-1')
-        const fieldsetForm2 = document.getElementById('fieldset-form-2')
-        const form2 = document.getElementById('form-2')
-
-        fieldsetForm1.disabled = true
-        form1.classList.remove('bg-light')
-        form1.style.backgroundColor = 'rgb(180, 182, 189)'
-        form1.style.opacity = '0.8'
-
-        fieldsetForm2.disabled = false
-        form2.classList.add('bg-light')
-        form2.style.opacity = '1'
-
-    });
-    //---------------------------------------------------------------------------------------------------------------------
-    function ajustarAltura() {
-        const elemento1 = document.getElementById('form-1');
-        const elemento2 = document.getElementById('form-2');
-        const alturaElemento1 = elemento1.offsetHeight;
-        if (!elemento2.offsetHeight > elemento2.offsetHeight) {
-            elemento2.style.minHeight = `${alturaElemento1}px`;
+        const form1Valid = this.validateForm1();
+        if (form1Valid) {
+            const fieldsetForm1 = document.getElementById('fieldset-form-1');
+            const form1 = document.getElementById('form-1');
+            const fieldsetForm2 = document.getElementById('fieldset-form-2');
+            const form2 = document.getElementById('form-2');
+            fieldsetForm1.disabled = true;
+            form1.classList.remove('bg-light');
+            form1.style.backgroundColor = 'rgb(180, 182, 189)';
+            form1.style.opacity = '0.8';
+            fieldsetForm2.disabled = false;
+            form2.classList.add('bg-light');
+            form2.style.opacity = '1';
+        } else {
+            alert('Por favor, preencha todos os campos corretamente.');
         }
     }
-    ajustarAltura();
-    window.onload = ajustarAltura;
-    window.addEventListener('resize', ajustarAltura);
-    //---------------------------------------------------------------------------------------------------------------------
 
-    function updateTargetPosition() {
-        const reference = document.getElementById('btns-form-1');
-        const target = document.getElementById('btns-form-2');
-        const negativeReference = document.getElementById('div-complement')
+    validateForm1() {
+        const name = document.getElementById('name').value;
+        const cpf = document.getElementById('cpf').value;
+        const birthDate = document.getElementById('birth-date').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const password2 = document.getElementById('password2').value;
 
-        const negativeReferenceOffsetTop = negativeReference.offsetTop;
-
-        const referenceOffsetTop = reference.offsetTop;
-        const sizeNegativeReference = negativeReference.offsetHeight;
-
-        target.style.marginTop = `${referenceOffsetTop - negativeReferenceOffsetTop - sizeNegativeReference}px`;
+        return name && cpf && birthDate && email && password && (password === password2);
     }
 
-    window.onload = updateTargetPosition;
-    //---------------------------------------------------------------------------------------------------------------------
-    document.getElementById('back-button').addEventListener('click', (e) => {
-        e.preventDefault()
-        const fieldsetForm1 = document.getElementById('fieldset-form-1')
-        const form1 = document.getElementById('form-1')
-        const fieldsetForm2 = document.getElementById('fieldset-form-2')
-        const form2 = document.getElementById('form-2')
+    async handleForm2Submit(event) {
+        event.preventDefault();
+        const user = this.collectUserData();
+        try {
+            await this.saveUser(user);
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = '../../pages/login/login.html';
+        } catch (error) {
+            console.error('Erro ao salvar o usuário:', error);
+            alert('Erro ao cadastrar usuário. Tente novamente.');
+        }
+    }
 
-        fieldsetForm2.disabled = true
-        fieldsetForm1.disabled = false
-        form1.classList.add('bg-light')
-        form2.classList.remove('bg-light')
-        form2.style.opacity = '0.8'
-        form2.style.backgroundColor = 'rgb(180, 182, 189)'
-        form2.style.opacity = '0.8'
-    });
+    collectUserData() {
+        const id = Date.now().toString(); // Simulação de um ID único
+        const name = document.getElementById('name').value;
+        const cpf = document.getElementById('cpf').value;
+        const birthDate = document.getElementById('birth-date').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const address = new Address({
+            cep: document.getElementById('cep').value,
+            logradouro: document.getElementById('logradouro').value,
+            number: document.getElementById('number').value,
+            neighborhood: document.getElementById('neighborhood').value,
+            city: document.getElementById('city').value,
+            uf: document.getElementById('uf').value,
+            complement: document.getElementById('complement').value,
+        });
+        return new User({ id, name, cpf, birthDate, email, password, address });
+    }
+
+    async saveUser(user) {
+        return fetch('https://prjeto-2-web1-default-rtdb.firebaseio.com/users.json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        }).then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao salvar usuário');
+            }
+        });
+    }
+
+    handleBackButton(event) {
+        event.preventDefault();
+        const fieldsetForm1 = document.getElementById('fieldset-form-1');
+        const form1 = document.getElementById('form-1');
+        const fieldsetForm2 = document.getElementById('fieldset-form-2');
+        const form2 = document.getElementById('form-2');
+        fieldsetForm2.disabled = true;
+        fieldsetForm1.disabled = false;
+        form1.classList.add('bg-light');
+        form2.classList.remove('bg-light');
+        form2.style.opacity = '0.8';
+        form2.style.backgroundColor = 'rgb(180, 182, 189)';
+    }
+
+    updateTargetPosition() {
+        const reference = document.getElementById('btns-form-1');
+        const target = document.getElementById('btns-form-2');
+        const negativeReference = document.getElementById('div-complement');
+        const negativeReferenceOffsetTop = negativeReference.offsetTop;
+        const referenceOffsetTop = reference.offsetTop;
+        const sizeNegativeReference = negativeReference.offsetHeight;
+        target.style.marginTop = `${referenceOffsetTop - negativeReferenceOffsetTop - sizeNegativeReference}px`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    new SignUpHandler();
 });
