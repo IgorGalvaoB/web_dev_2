@@ -1,3 +1,4 @@
+// pages/login/login.js
 class LoginHandler {
     constructor() {
         this.setupListeners();
@@ -15,8 +16,9 @@ class LoginHandler {
         this.fetchUsers().then(users => {
             const user = users.find(user => user.email === email && user.password === password);
             if (user) {
-                this.storeSession(user.id, stayLogged);
-                this.redirectToNextPage();
+                this.storeSession(user.id, email, stayLogged);
+                this.setUserLoggedIn(user.id, true);
+                this.redirectToDashboard();
             } else {
                 this.displayLoginError();
             }
@@ -42,22 +44,35 @@ class LoginHandler {
             });
     }
 
-    storeSession(userId, stayLogged) {
+    storeSession(userId, email, stayLogged) {
         if (stayLogged) {
             sessionStorage.setItem('id', userId);
+            sessionStorage.setItem('email', email);
         } else {
             localStorage.setItem('id', userId);
+            localStorage.setItem('email', email);
         }
     }
 
-    redirectToNextPage() {
-        const params = new URLSearchParams(window.location.search);
-        const idProduct = params.get('idProduct');
-        if (idProduct) {
-            // Implementar a lógica de redirecionamento para o pagamento com o ID do produto
-        } else {
-            window.location.href = '../../index.html';
+    async setUserLoggedIn(userId, status) {
+        try {
+            const response = await fetch(`https://prjeto-2-web1-default-rtdb.firebaseio.com/users/${userId}.json`);
+            const user = await response.json();
+            user.logado = status;
+            await fetch(`https://prjeto-2-web1-default-rtdb.firebaseio.com/users/${userId}.json`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+        } catch (error) {
+            console.error('Erro ao atualizar status de login:', error);
         }
+    }
+
+    redirectToDashboard() {
+        window.location.href = '../../pages/dashboard/dashboard.html';
     }
 
     displayLoginError() {
