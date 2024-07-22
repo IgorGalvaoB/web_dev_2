@@ -1,5 +1,6 @@
+// pages/sign_up/sign_up.js
 class User {
-    constructor({ id, name, cpf, birthDate, email, password, address }) {
+    constructor({ id, name, cpf, birthDate, email, password, address, logado = false, pacotes = [] }) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -7,6 +8,8 @@ class User {
         this.email = email;
         this.password = password;
         this.address = address;
+        this.logado = logado;
+        this.pacotes = pacotes; // Inicializa com uma lista de pacotes vazia, se não fornecida
     }
 }
 
@@ -28,17 +31,10 @@ class SignUpHandler {
     }
 
     setupListeners() {
-        document.getElementById('name').addEventListener('input', () => this.handleNomeInput());
-        document.getElementById('cpf').addEventListener('input', () => this.handleCPFInput());
-        document.getElementById('cpf').addEventListener('blur', () => this.handleCPFBlur());
-        document.getElementById('birth-date').addEventListener('input', () => this.handleBirthDateInput());
-        document.getElementById('birth-date').addEventListener('blur', () => this.handleBirthDateBlur());
-        document.getElementById('password').addEventListener('input', () => this.handlePasswordInput());
-        document.getElementById('password').addEventListener('blur', () => this.handlePasswordBlur());
-        document.getElementById('password2').addEventListener('input', () => this.handlePasswordInput2());
-        document.getElementById('password2').addEventListener('blur', () => this.comparePasswords());
-        document.getElementById('cep').addEventListener('input', () => this.handleCEPInput());
-        document.getElementById('cep').addEventListener('blur', () => this.handleCEPBlur());
+        document.getElementById('cpf').addEventListener('input', () => this.formatarCPF());
+        document.getElementById('birth-date').addEventListener('input', () => this.formatarBirthDate());
+        document.getElementById('cep').addEventListener('input', () => this.formatarCEP());
+        document.getElementById('cep').addEventListener('blur', () => this.preencherEndereco());
         document.getElementById('form-1').addEventListener('submit', (event) => this.handleForm1Submit(event));
         document.getElementById('form-2').addEventListener('submit', (event) => this.handleForm2Submit(event));
         document.getElementById('back-button').addEventListener('click', (event) => this.handleBackButton(event));
@@ -46,151 +42,59 @@ class SignUpHandler {
         window.addEventListener('resize', this.updateTargetPosition);
     }
 
-    validarNome(nome) {
-        nome = nome.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
-        return nome.slice(0, 37);
+    formatarCPF() {
+        const cpfInput = document.getElementById('cpf');
+        cpfInput.value = cpfInput.value
+            .replace(/\D/g, '') // Remove todos os caracteres não numéricos
+            .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona um ponto após os primeiros 3 dígitos
+            .replace(/(\d{3})(\d)/, '$1.$2') // Adiciona um ponto após os 3 dígitos seguintes
+            .replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Adiciona um hífen antes dos últimos 2 dígitos
     }
 
-    handleNomeInput() {
-        let nomeInput = document.getElementById('name');
-        let valor = nomeInput.value;
-        valor = this.validarNome(valor);
-        nomeInput.value = valor;
+    formatarBirthDate() {
+        const birthDateInput = document.getElementById('birth-date');
+        birthDateInput.value = birthDateInput.value
+            .replace(/\D/g, '') // Remove todos os caracteres não numéricos
+            .replace(/(\d{2})(\d)/, '$1/$2') // Adiciona uma barra após os primeiros 2 dígitos
+            .replace(/(\d{2})(\d{1,4})$/, '$1/$2'); // Adiciona uma barra após os 2 dígitos seguintes
     }
 
-    formatarCPF(cpf) {
-        cpf = cpf.replace(/\D/g, '');
-        return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    formatarCEP() {
+        const cepInput = document.getElementById('cep');
+        cepInput.value = cepInput.value
+            .replace(/\D/g, '') // Remove todos os caracteres não numéricos
+            .replace(/^(\d{5})(\d)/, '$1-$2'); // Adiciona um hífen após os primeiros 5 dígitos
     }
 
-    handleCPFInput() {
-        let cpfInput = document.getElementById('cpf');
-        let valor = cpfInput.value;
-        valor = this.formatarCPF(valor);
-        cpfInput.value = valor;
-    }
+    async preencherEndereco() {
+        const cepInput = document.getElementById('cep');
+        const cep = cepInput.value.replace(/\D/g, '');
 
-    handleCPFBlur() {
-        let cpfInput = document.getElementById('cpf');
-        let valor = cpfInput.value.replace(/\D/g, '');
-        while (valor.length < 11) {
-            valor = '0' + valor;
-        }
-        valor = this.formatarCPF(valor);
-        cpfInput.value = valor;
-    }
-
-    formatarBirthDate(birthDate) {
-        birthDate = birthDate.replace(/\D/g, '');
-        return birthDate.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-    }
-
-    handleBirthDateInput() {
-        let birthDateInput = document.getElementById('birth-date');
-        let valor = birthDateInput.value;
-        valor = this.formatarBirthDate(valor);
-        birthDateInput.value = valor;
-    }
-
-    handleBirthDateBlur() {
-        let birthDateInput = document.getElementById('birth-date');
-        let valor = birthDateInput.value.replace(/\D/g, '');
-        valor = this.formatarBirthDate(valor);
-        birthDateInput.value = valor;
-        if (birthDateInput.value.length < 10 && birthDateInput.value.length !== 0) {
-            document.getElementById('birth-date-helper-text').innerHTML = '<span class="text-danger">Data inválida</span>';
-        } else {
-            document.getElementById('birth-date-helper-text').innerHTML = 'DD/MM/AAAA';
-        }
-    }
-
-    handlePasswordInput() {
-        let passwordInput = document.getElementById('password');
-        let valor = passwordInput.value;
-        if (valor.length > 16) {
-            passwordInput.value = valor.slice(0, 16);
-        }
-    }
-
-    handlePasswordBlur() {
-        let passwordInput = document.getElementById('password');
-        let valor = passwordInput.value;
-        if (valor.length < 8) {
-            document.getElementById('password-helper').innerHTML = '<p class="text-danger">A senha deve conter entre 8 a 16 caracteres</p>';
-        } else {
-            document.getElementById('password-helper').innerHTML = 'Deve conter entre 8 a 16 caracteres';
-        }
-    }
-
-    handlePasswordInput2() {
-        let passwordInput = document.getElementById('password2');
-        let valor = passwordInput.value;
-        if (valor.length > 16) {
-            passwordInput.value = valor.slice(0, 16);
-        }
-    }
-
-    comparePasswords() {
-        let password1 = document.getElementById('password').value;
-        let password2 = document.getElementById('password2').value;
-        if (password1 !== password2) {
-            document.getElementById('password-helper2').innerHTML = '<span class="text-danger">As senhas são diferentes</span>';
-        } else if (password2 === '') {
-            document.getElementById('password-helper2').innerHTML = 'Deve ser igual a anterior';
-        } else {
-            document.getElementById('password-helper2').innerHTML = '<span class="text-success">Senhas são iguais</span>';
-        }
-    }
-
-    formatarCEP(cep) {
-        cep = cep.replace(/\D/g, '');
-        return cep.replace(/^(\d{5})(\d{3})/, '$1-$2');
-    }
-
-    handleCEPInput() {
-        let cepInput = document.getElementById('cep');
-        let valor = cepInput.value;
-        valor = this.formatarCEP(valor);
-        cepInput.value = valor;
-    }
-
-    async handleCEPBlur() {
-        let cepInput = document.getElementById('cep');
-        let valor = cepInput.value.replace(/\D/g, '');
-        while (valor.length < 8) {
-            valor = '0' + valor;
-        }
-        valor = this.formatarCEP(valor);
-        cepInput.value = valor;
-        await this.GetDataCep();
-    }
-
-    async GetDataCep() {
-        let cepInput = document.getElementById('cep');
-        let cep = cepInput.value.replace(/\D/g, '');
-        if (cep.length < 8) {
-            alert('CEP incompleto.');
+        if (cep.length !== 8) {
+            alert('CEP inválido');
             return;
         }
-        cep = this.formatarCEP(cep);
+
         try {
             const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const data = await response.json();
-            if (data.erro) {
-                document.getElementById('cep-helper-text').innerHTML = '<span class="text-danger">CEP não encontrado</span>';
-            } else {
-                const logradouro = document.getElementById('logradouro');
-                const uf = document.getElementById('uf');
-                const cidade = document.getElementById('city');
-                const bairro = document.getElementById('neighborhood');
-                if (data.logradouro) logradouro.value = data.logradouro;
-                if (data.localidade) cidade.value = data.localidade;
-                if (data.uf) uf.value = data.uf;
-                if (data.bairro) bairro.value = data.bairro;
+            if (!response.ok) {
+                throw new Error('Erro ao buscar informações do CEP');
             }
+            const data = await response.json();
+
+            if (data.erro) {
+                alert('CEP não encontrado');
+                return;
+            }
+
+            document.getElementById('logradouro').value = data.logradouro || '';
+            document.getElementById('neighborhood').value = data.bairro || '';
+            document.getElementById('city').value = data.localidade || '';
+            document.getElementById('uf').value = data.uf || '';
+
         } catch (error) {
-            alert('Erro ao consultar o CEP.');
-            console.error('Erro:', error);
+            console.error('Erro ao buscar informações do CEP:', error);
+            alert('Erro ao buscar informações do CEP. Tente novamente.');
         }
     }
 
@@ -212,17 +116,6 @@ class SignUpHandler {
         } else {
             alert('Por favor, preencha todos os campos corretamente.');
         }
-    }
-
-    validateForm1() {
-        const name = document.getElementById('name').value;
-        const cpf = document.getElementById('cpf').value;
-        const birthDate = document.getElementById('birth-date').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        const password2 = document.getElementById('password2').value;
-
-        return name && cpf && birthDate && email && password && (password === password2);
     }
 
     async handleForm2Submit(event) {
@@ -254,7 +147,9 @@ class SignUpHandler {
             uf: document.getElementById('uf').value,
             complement: document.getElementById('complement').value,
         });
-        return new User({ id, name, cpf, birthDate, email, password, address });
+        const logado = false;
+        const pacotes = [];
+        return new User({ id, name, cpf, birthDate, email, password, address, logado, pacotes });
     }
 
     async saveUser(user) {
@@ -283,6 +178,17 @@ class SignUpHandler {
         form2.classList.remove('bg-light');
         form2.style.opacity = '0.8';
         form2.style.backgroundColor = 'rgb(180, 182, 189)';
+    }
+
+    validateForm1() {
+        const name = document.getElementById('name').value;
+        const cpf = document.getElementById('cpf').value;
+        const birthDate = document.getElementById('birth-date').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const password2 = document.getElementById('password2').value;
+
+        return name && cpf && birthDate && email && password && (password === password2);
     }
 
     updateTargetPosition() {
