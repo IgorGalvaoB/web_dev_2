@@ -1,14 +1,20 @@
-*{
+* {
     box-sizing: border-box;
-   
+
 }
-body{
-    background-color:azure;
+
+body {
+    background-color: azure;
 }
- @media screen and (max-width: 480px) {
-    
+
+main {
+    padding: 6%;
+}
+
+@media screen and (max-width: 480px) {
+
     body {
         font-size: 14px;
     }
-  
+
 }
