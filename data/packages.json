@@ -2,33 +2,166 @@
     "pacotes": [
         {
             "id": 1,
-            "nome": "Pacote Aventura",
-            "destino": "Chapada Diamantina",
-            "duracao": "7 dias",
-            "preco": 2500.00
+            "title": "Pacote Aventura",
+            "destiny": "Chapada Diamantina",
+            "journey": "7 dias",
+            "image": "https://www.vaipormim.com/storage/posts/files/d8994b1912811890a5bcecb97c318a2639ca062f.webp",
+            "price": 2500.00,
+            "description": "Explore as belas trilhas e cachoeiras da Chapada Diamantina em um pacote de aventura inesquecível."
         },
         {
             "id": 2,
-            "nome": "Pacote Romântico",
-            "destino": "Gramado",
-            "duracao": "5 dias",
-            "preco": 1800.00
+            "title": "Pacote Romântico",
+            "destiny": "Gramado",
+            "journey": "5 dias",
+            "price": 1800.00,
+            "description": "Desfrute de um clima romântico em Gramado, com passeios encantadores e gastronomia deliciosa."
+        },
+        {
+            "id": 3,
+            "title": "Pacote Cultural",
+            "destiny": "Salvador",
+            "journey": "4 dias",
+            "price": 1500.00,
+            "description": "Mergulhe na rica cultura e história de Salvador com visitas a pontos turísticos históricos e culturais."
+        },
+        {
+            "id": 4,
+            "title": "Pacote Praia",
+            "destiny": "Rio de Janeiro",
+            "journey": "6 dias",
+            "price": 2200.00,
+            "description": "Aproveite as praias icônicas do Rio de Janeiro e explore a cidade maravilhosa em um pacote imperdível."
+        },
+        {
+            "id": 5,
+            "title": "Pacote Ecoturismo",
+            "destiny": "Bonito",
+            "journey": "5 dias",
+            "price": 2000.00,
+            "description": "Descubra a beleza natural de Bonito com atividades como mergulho, flutuação e trilhas ecológicas."
+        },
+        {
+            "id": 6,
+            "title": "Pacote Gastronômico",
+            "destiny": "Belo Horizonte",
+            "journey": "3 dias",
+            "price": 1200.00,
+            "description": "Saboreie a culinária mineira em Belo Horizonte, visitando os melhores restaurantes e bares da cidade."
+        },
+        {
+            "id": 7,
+            "title": "Pacote Histórico",
+            "destiny": "Ouro Preto",
+            "journey": "4 dias",
+            "price": 1400.00,
+            "description": "Reviva o período colonial brasileiro em Ouro Preto, com seus museus, igrejas e arquitetura histórica."
+        },
+        {
+            "id": 8,
+            "title": "Pacote Natureza",
+            "destiny": "Foz do Iguaçu",
+            "journey": "6 dias",
+            "price": 2300.00,
+            "description": "Encante-se com as majestosas Cataratas do Iguaçu e explore a fauna e flora da região."
+        },
+        {
+            "id": 9,
+            "title": "Pacote Urban",
+            "destiny": "São Paulo",
+            "journey": "3 dias",
+            "price": 1000.00,
+            "description": "Vivencie a vibrante vida urbana de São Paulo com visitas a museus, teatros e restaurantes renomados."
+        },
+        {
+            "id": 10,
+            "title": "Pacote Relax",
+            "destiny": "Caldas Novas",
+            "journey": "5 dias",
+            "price": 1900.00,
+            "description": "Relaxe nas águas termais de Caldas Novas e aproveite dias tranquilos em um ambiente acolhedor."
         }
     ],
     "cruzeiros": [
         {
             "id": 1,
-            "nome": "Cruzeiro Caribe",
-            "destino": "Bahamas",
-            "duracao": "10 dias",
-            "preco": 4500.00
+            "title": "Cruzeiro Caribe",
+            "destiny": "Bahamas",
+            "journey": "10 dias",
+            "price": 4500.00,
+            "description": "Navegue pelas águas cristalinas do Caribe e explore as belas ilhas das Bahamas em um cruzeiro de luxo."
         },
         {
             "id": 2,
-            "nome": "Cruzeiro Mediterrâneo",
-            "destino": "Itália, França, Espanha",
-            "duracao": "12 dias",
-            "preco": 6000.00
+            "title": "Cruzeiro Mediterrâneo",
+            "destiny": "Itália, França, Espanha",
+            "journey": "12 dias",
+            "price": 6000.00,
+            "description": "Descubra as maravilhas do Mediterrâneo, visitando portos históricos e cidades deslumbrantes da Europa."
+        },
+        {
+            "id": 3,
+            "title": "Cruzeiro Alasca",
+            "destiny": "Alasca",
+            "journey": "8 dias",
+            "price": 5000.00,
+            "description": "Explore as paisagens geladas e a vida selvagem do Alasca em um cruzeiro emocionante e inesquecível."
+        },
+        {
+            "id": 4,
+            "title": "Cruzeiro Havaí",
+            "destiny": "Havaí",
+            "journey": "7 dias",
+            "price": 5500.00,
+            "description": "Desfrute das praias paradisíacas e vulcões ativos do Havaí em um cruzeiro repleto de aventuras."
+        },
+        {
+            "id": 5,
+            "title": "Cruzeiro Riviera Mexicana",
+            "destiny": "México",
+            "journey": "9 dias",
+            "price": 4800.00,
+            "description": "Explore as belas costas mexicanas e desfrute de atividades culturais e recreativas a bordo."
+        },
+        {
+            "id": 6,
+            "title": "Cruzeiro Báltico",
+            "destiny": "Escandinávia, Rússia",
+            "journey": "11 dias",
+            "price": 6500.00,
+            "description": "Visite as capitais deslumbrantes da Escandinávia e da Rússia em um cruzeiro pelo Mar Báltico."
+        },
+        {
+            "id": 7,
+            "title": "Cruzeiro Mediterrâneo Oriental",
+            "destiny": "Grécia, Turquia",
+            "journey": "10 dias",
+            "price": 6200.00,
+            "description": "Descubra as antigas civilizações da Grécia e Turquia enquanto navega pelo Mediterrâneo Oriental."
+        },
+        {
+            "id": 8,
+            "title": "Cruzeiro Japão e Coreia",
+            "destiny": "Japão, Coreia do Sul",
+            "journey": "13 dias",
+            "price": 7000.00,
+            "description": "Explore as culturas ricas e paisagens deslumbrantes do Japão e da Coreia do Sul em um cruzeiro exclusivo."
+        },
+        {
+            "id": 9,
+            "title": "Cruzeiro Austrália e Nova Zelândia",
+            "destiny": "Austrália, Nova Zelândia",
+            "journey": "14 dias",
+            "price": 7500.00,
+            "description": "Navegue pelas costas da Austrália e Nova Zelândia, descobrindo suas paisagens naturais e cidades vibrantes."
+        },
+        {
+            "id": 10,
+            "title": "Cruzeiro Canal do Panamá",
+            "destiny": "Panamá, Caribe",
+            "journey": "15 dias",
+            "price": 8000.00,
+            "description": "Atravessando o histórico Canal do Panamá, este cruzeiro oferece uma experiência única e vistas deslumbrantes."
         }
     ]
 }
