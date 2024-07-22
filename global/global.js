@@ -1,9 +1,10 @@
+// global/global.js
 document.addEventListener("DOMContentLoaded", function () {
     const path = window.location.pathname;
 
     const getBaseUrl = () => {
         const pathArray = path.split('/');
-        let depth = pathArray.length - 2; // -2 para compensar /pages/<subdir>/ e a própria página
+        let depth = pathArray.length - 2;
         let baseUrl = '';
         for (let i = 0; i < depth; i++) {
             baseUrl += '../';
@@ -68,17 +69,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.href = `${baseUrl}pages/sign_up/sign_up.html`;
             });
 
+            document.getElementById('button-profile')?.addEventListener('click', () => {
+                window.location.href = `${baseUrl}pages/dashboard/dashboard.html`;
+            });
+
             document.getElementById('button-logout')?.addEventListener('click', () => {
                 localStorage.clear();
                 sessionStorage.clear();
-                window.location.href = `/index.html`; // Always redirect to root index.html
+                window.location.href = `/index.html`;
             });
         } else {
             console.error("Element with id 'btn-sing-login' not found");
         }
     };
 
-    // Update logo link to always point to the root index.html
     const logoLink = document.querySelector('.navbar-brand');
     if (logoLink) {
         logoLink.href = "/index.html";
